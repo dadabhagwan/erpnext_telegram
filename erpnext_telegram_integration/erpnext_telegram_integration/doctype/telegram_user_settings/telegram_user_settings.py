@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 import frappe
+from frappe.utils import cint
 from frappe.model.document import Document
 import telegram
 import binascii
@@ -45,14 +46,21 @@ def generate_telegram_token(is_group_chat):
 		return binascii.hexlify(os.urandom(20)).decode()
 
 @frappe.whitelist()
-def get_chat_id_button(telegram_token, telegram_settings):
+def get_chat_id_button(telegram_token, telegram_settings, is_group_chat, telegram_user_first_name=None):
 	telegram_token_bot = frappe.db.get_value('Telegram Settings', telegram_settings,'telegram_token')
 	bot = telegram.Bot(token = telegram_token_bot)
 	updates = bot.get_updates(limit=100)
 	for u in updates:
+		# ignore messages without text
+		if not u.message or not u.message.text:
+			continue
 		message = u.message.text
-		chat_id = u.message.chat_id
-		# frappe.msgprint(str(message) + " >>>>>> "+ str(chat_id)) 
-		if telegram_token == message:
-			return chat_id
-	
+		chat_id = ''
+		if u.message.chat.type == 'group' and cint(is_group_chat):
+			chat_id = u.message.chat.id
+			if telegram_token == message:
+				return chat_id
+		elif u.message.chat.type == 'private':
+			chat_id = u.message.chat.id
+			if telegram_token == message and telegram_user_first_name == u.message.chat.first_name:
+				return chat_id

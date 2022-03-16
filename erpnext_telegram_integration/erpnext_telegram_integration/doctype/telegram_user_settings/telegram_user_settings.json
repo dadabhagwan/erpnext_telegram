@@ -10,6 +10,8 @@
   "telegram_user",
   "telegram_user_name",
   "telegram_settings",
+  "column_break_5",
+  "telegram_user_first_name",
   "section_break_4",
   "is_group_chat",
   "generate_telegram_token",
@@ -77,9 +79,18 @@
    "fieldname": "generate_telegram_token",
    "fieldtype": "Button",
    "label": "Generate Telegram Token"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "telegram_user_first_name",
+   "fieldtype": "Data",
+   "label": "Telegram User First Name"
   }
  ],
- "modified": "2020-05-09 00:02:07.022847",
+ "modified": "2022-03-16 17:07:34.995115",
  "modified_by": "Administrator",
  "module": "Erpnext Telegram Integration",
  "name": "Telegram User Settings",
