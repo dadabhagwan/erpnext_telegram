@@ -62,5 +62,5 @@ def get_chat_id_button(telegram_token, telegram_settings, is_group_chat, telegra
 				return chat_id
 		elif u.message.chat.type == 'private':
 			chat_id = u.message.chat.id
-			if telegram_token == message and telegram_user_first_name == u.message.chat.first_name:
+			if telegram_token == message and telegram_user_first_name in u.message.chat.first_name:
 				return chat_id
