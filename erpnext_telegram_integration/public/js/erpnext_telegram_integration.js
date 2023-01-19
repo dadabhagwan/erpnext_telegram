@@ -3,6 +3,8 @@ $(document).on('app_ready', function() {
    
         var route = frappe.get_route();
 
+        if (!route) return;
+
         if (route[0] == "Form") {
             frappe.ui.form.on(route[1], {
                 refresh: function (frm) {

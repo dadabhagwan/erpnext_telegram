@@ -56,7 +56,7 @@ def get_chat_id_button(telegram_token, telegram_settings, is_group_chat, telegra
 			continue
 		message = u.message.text
 		chat_id = ''
-		if u.message.chat.type == 'group' and cint(is_group_chat):
+		if u.message.chat.type in ['group', 'supergroup'] and cint(is_group_chat):
 			chat_id = u.message.chat.id
 			if telegram_token == message:
 				return chat_id
